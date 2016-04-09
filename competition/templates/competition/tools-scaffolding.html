@@ -1,0 +1,73 @@
+{% load staticfiles %}
+{% load mvhbc_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Merrimack Valley Homebrew Club</title>
+    <meta name="description" content="Merrimack Valley Homebrew Club">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static "css/bootstrap-mvhbc.css" %}">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+    <header>
+        <div class="container clearfix">
+            <img src="{% static "img/mvhbcLogo200.jpg" %}" class="img-responsive pull-left" alt="Responsive image">
+            <!-- Tools Summary -->
+            <div class="tools-summary pull-left">
+                <!-- Totals -->
+                <h3> Totals</h3>
+                <ul>
+                    <li>Users: {{ data.users|length }}</li>
+                    <li>Submissions: {{ data.submissions|length }}</li>
+                    <li>Judges: {{ data.judges|length }}</li>
+                    <li>Stewards: {{ data.stewards|length }}</li>
+                </ul>
+            </div>
+
+        </div>
+    </header>
+    <nav class="navbar navbar-default mvhbc-navbar">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url "home" %}">MVHBC Tools</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+    <div class="container-fluid view">{% block content %}Inner Content{% endblock content %}</div>
+
+
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="{% static "bower_components/lodash/lodash.min.js" %}"></script>
+    <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
+    <script src="{% static "bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js" %}"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="{% static "js/competition-account.js" %}"></script>
+    <script src="{% static "js/table-manager.js" %}"></script>
+</body>
+</html>

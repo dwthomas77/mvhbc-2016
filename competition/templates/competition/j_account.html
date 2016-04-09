@@ -1,0 +1,51 @@
+{% extends "mvhbc/scaffolding.html" %}
+{% load staticfiles %}
+{% load mvhbc_tags %}
+{% block content %}
+
+<div class="comp-welcome container">
+    <div class="comp-accountHeader clearfix">
+        <div class="pull-left">MVHBC Homebrew Competition - June 20th, 2015</div>
+        <div class="pull-right">Logged in as: {{ user.username }} | <a href="{% url "logout" %}">Logout</a></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <h4>Welcome {{ user.first_name}} {{ user.last_name }}!</h4>
+            <p>Thank you for registering to participate in the fourth annual Merrimack Valley Homebrew Club Competition.</p>
+            <p>If you have signed up to act as a Judge or Steward for our event please fill out the form below.  If you have pre-registered to submit entries to our competition the entry submission will be available the first week of May.</p>
+            <p>Please use the same account if you plan to volunteer and submit entries.  This will allow us to match your preferences more easily to the right categories to Judge or Steward.</p>
+
+        </div>
+        <div class="col-md-6">
+
+            <form id="registrationForm" class="registration-form" method="post" action="{% url "account" %}">
+                {% csrf_token %} 
+
+                <h4>Judge and Steward Preferences and Profile</h4>
+                <br>
+
+                {% for field in judgeForm %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field|addcss:"form-control input-sm" }}
+                    <div class="text-danger bg-danger">{{ field.errors }}</div>
+                </div>
+                {% endfor %}
+                
+                <div class="clearfix form-submitBtn">
+                    <div class="pull-right">
+                        <input class="btn btn-primary" type="submit" value="Update">
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

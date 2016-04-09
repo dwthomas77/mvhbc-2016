@@ -1,0 +1,285 @@
+    {% extends "competition/tools-scaffolding.html" %}
+{% load staticfiles %}
+{% load mvhbc_tags %}
+{% block content %}
+
+<div class="tool-container container-fluid">
+    <div class="clearfix">
+        <div class="table-carousel pull-left">
+            <div>Tables</div>
+
+            <div class="clearfix table-scroller js-table-scroller">
+                
+            </div>
+
+        </div>
+        <a href="{% url 'table_add' %}" class="pull-right btn btn-sm btn-primary">Add New Table</a>
+    </div>
+
+
+    <div class="row table-pane-layout">
+        <!-- Styles -->
+        <div class="col-md-4">
+            <h3 class="tool-header">Styles</h3>
+            <div class="js-style-container"></div>
+        </div>
+        <div class="col-md-8">
+            <h3 class="tool-header">Selected Table</h3>
+            <div class="js-pane-container"></div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Category Lock Form -->
+<form id="category-lock" method="post" action="{% url "lock_category" %}">
+{% csrf_token %}
+    <input type="hidden" id="form-categoryName" name="categoryName" value="">
+    <input type="hidden" id="form-tableId" name="tableId" value="">
+</form>
+
+<!-- Category Unlock Form -->
+<form id="category-unlock" method="post" action="{% url "unlock_category" %}">
+{% csrf_token %}
+    <input type="hidden" id="form-categoryNameB" name="categoryName" value="">
+    <input type="hidden" id="form-tableIdB" name="tableId" value="">
+</form>
+
+<!-- Add Judge Form -->
+<form id="add-judge" method="post" action="{% url "add_judge" %}">
+{% csrf_token %}
+    <input type="hidden" id="form-judgeAdd" name="form-judgeAdd" value="">
+    <input type="hidden" id="form-tableAddJudge" name="form-tableAddJudge" value="">
+</form>
+
+<!-- Add Steward Form -->
+<form id="add-steward" method="post" action="{% url "add_steward" %}">
+{% csrf_token %}
+    <input type="hidden" id="form-stewardAdd" name="form-stewardAdd" value="">
+    <input type="hidden" id="form-tableAddSteward" name="form-tableAddSteward" value="">
+</form>
+
+<!-- Remove Judge Form -->
+<form id="remove-judge" method="post" action="{% url "remove_judge" %}">
+{% csrf_token %}
+    <input type="hidden" id="form-judgeRemove" name="form-judgeRemove" value="">
+    <input type="hidden" id="form-tableRemoveJudge" name="form-tableRemoveJudge" value="">
+</form>
+
+<!-- Remove Steward Form -->
+<form id="remove-steward" method="post" action="{% url "remove_steward" %}">
+{% csrf_token %}
+    <input type="hidden" id="form-stewardRemove" name="form-stewardRemove" value="">
+    <input type="hidden" id="form-tableRemoveSteward" name="form-tableRemoveSteward" value="">
+</form>
+
+<!-- Switch Table Form -->
+<form id="switch-table" method="post" action="{% url "switch_table" %}">
+{% csrf_token %}
+    <input type="hidden" id="switchTableId" name="switchTableId" value="">
+</form>
+
+<!-- JS DATA -->
+<script>
+
+    var categories = [];
+    var chart = {};
+
+    // Styles
+    var styles = [{% for style in data.styles %}
+        {
+            id: '{{ style.pk }}',
+            style_id: '{{ style.style_id }}',
+            name: '{{ style.name }}',
+            category: '{{ style.category }}',
+            table: ('{{ style.table }}' !== 'None') ? '{{ style.table }}' : null,
+            submissions: []
+        },{% endfor %}
+    ];
+
+    // Submissions
+    var submissions = [{% for submission in data.submissions %}
+        {
+            id: '{{ submission.pk }}',
+            competition_id: '{{ submission.competition_id }}',
+            name: '{{ submission.name }}',
+            brewer: '{{ submission.brewer }}',
+            brewerId: '{{ submission.brewer.pk }}',
+            style: '{{ submission.style }}'
+        },{% endfor %}
+    ];
+
+    // Tables
+    var tables = [{% for table in data.tables %}
+        {
+            id: '{{ table.pk }}',
+            name: '{{ table.name }}',
+            session: '{{ table.session }}',
+            savedCategories: [],    
+            unsavedCategories: [],
+            restrictedStyles: [],
+            judges: [{% for judge in table.judges.all %}{{ judge.pk }}, {% endfor %}],
+            stewards: [{% for steward in table.stewards.all %}{{ steward.pk }}, {% endfor %}],
+            displayJudges: [],
+            displayStewards: []
+        },{% endfor %}
+    ];
+
+    // Judges
+    var judges = [{% for judge in data.judges %}
+        {
+            id: '{{ judge.pk }}',
+            name: '{{ judge.user.first_name }} {{ judge.user.last_name }}',
+            qualification: '{{ judge.qualification }}',
+            comments: "{{ judge.comments }}",
+            restrictedStyles: [],
+            tableAM: null,
+            tablePM: null
+        },{% endfor %}
+    ];
+
+    // Stewards
+    var stewards = [{% for steward in data.stewards %}
+        {
+            id: '{{ steward.pk }}',
+            name: '{{ steward.user.first_name }} {{ steward.user.last_name }}',
+            qualification: '{{ steward.qualification }}',
+            tableAM: null,
+            tablePM: null
+        },{% endfor %}
+    ];
+
+</script>
+<!-- END JS DATA -->
+
+<!-- JS Templates -->
+
+<!-- Category List -->
+<script type="text/html" id="category-list">
+    <div class="list-group style-list">
+        <% _.forEach(categories, function (category) { %>
+            <div data-name="<%= category.name %>" class="list-group-item clearfix<% if(!category.totalSubmissions){ %> disabled<%} %><% if(category.table){ %> list-group-item-warning<%} %><% if(category.savedtable){ %> list-group-item-success<%} %>">
+                <div class="style-li-name pull-left"><%= category.name %></div>
+                <div class="style-li-count pull-right"><span class="badge"><% print(category.totalSubmissions); %></span></div>
+                <% if(category.totalSubmissions && !category.table && !category.savedtable){ %><button class="pull-right btn btn-xs btn-primary js-add-style">Add</button><% } %>
+                <% if(category.table){ %>
+                    <button type="button" data-name="<%= category.name %>" class="btn btn-xs btn-danger pull-right js-remove-category" data-toggle="tooltip" data-placement="top" title="Remove Category"><span class="glyphicon glyphicon-trash"></span></button>
+                <% } %>
+                <% if(category.table){ %> <div class="category-table pull-right"><%= category.table %></div> <% } %>
+                <% if(category.savedtable){ %> <div class="category-savedtable pull-right"><%= category.savedtable %></div> <% } %>
+            </div>
+        <% }); %>
+    </div>
+</script>
+
+<!-- Table List -->
+<script type="text/html" id="table-list">
+    <% _.forEach(tables, function (table) { %>
+    <div class="table-item-container">
+        <div class="table-item" data-id="<%= table.id %>">
+            <div class="table-name"><%= table.name %></div>
+            <div class="table-entries">Entries: <%= table.totalSubmissions %></div>
+            <div class="table-judges">Judges: <%= table.judges.length %></div>
+        </div>
+        <div class="table-item-session text-center"><%= table.session %></div>
+    </div>
+    <% }); %>
+</script>
+
+<!-- Table Pane - Container -->
+<script type="text/html" id="table-pane-container">
+<!-- Table Pane -->
+            <div id="table-pane1" class="table-pane" data-id="<%= table.id %>">
+                <!-- Table Title -->
+                <div class="table-pane-title clearfix">
+                    <div class="pull-left table-pane-name"><%= table.name %></div>
+                    <div class="text-center table-pane-name pull-left" style="margin-left: 20%;"><%= table.totalSubmissions %> Entries</div>
+                    <a href="../pullsheet/<%= table.id %>" class="btn btn-primary pull-left btn-xs" style="margin-left: 20%;">Pull Sheet</a>
+                    <div class="pull-right table-pane-session"><span class="js-switch-sessions table-pane-switch"><%= table.session %></span></div>
+                </div>
+                <div class="clearfix">
+                    <!-- Table Data -->
+                    <div class="table-pane-data table-pane-left">
+                        Data
+                        <div id="style-pie-chart"></div>
+                    </div>
+                    <!-- List of Styles -->
+                    <div class="table-pane-styles table-pane-right">
+                        Styles
+                        <div class="list-group">
+                        <!-- Saved Categories -->
+                        <% _.forEach(table.savedCategories, function(category){%>
+                            <div data-name="<%= category.name %>" class="list-group-item pane-savedStyle list-group-item-success clearfix">
+                                <div class="pull-left"><%= category.name %></div>
+                                <button type="button" data-name="<%= category.name %>" class="btn btn-xs btn-danger pull-right js-unlock-category"><span class="glyphicon glyphicon-lock"></span></button>
+                            </div>
+                        <%})%>
+                        <!-- Unsaved Categories -->
+                        <% _.forEach(table.unsavedCategories, function(category){%>
+                            <div data-name="<%= category.name %>" class="list-group-item pane-unsavedStyle list-group-item-warning clearfix">
+                                <div class="pull-left"><%= category.name %></div>
+                                <button type="button" data-name="<%= category.name %>" class="btn btn-xs btn-success pull-right js-lock-category"><span class="glyphicon glyphicon-lock"></span></button>
+                                <button type="button" data-name="<%= category.name %>" class="btn btn-xs btn-danger pull-right js-remove-category" data-toggle="tooltip" data-placement="top" title="Remove Category"><span class="glyphicon glyphicon-trash"></span></button>
+                            </div>
+                        <%})%>
+                        </div>
+                    </div>
+                </div>
+                <!-- Table Message -->
+                <div class="js-table-message"></div>
+                <!-- Saved Judges -->
+                <div class="table-judge-display row">
+                    <div class="col-md-6">
+                        <h5>Judges</h5>
+                        <div class="list-group">
+                        <% _.forEach(table.displayJudges, function(judge){ %>
+                            <div class="list-group-item list-group-item-success clearfix"><span class="pull-left"><%= judge.name %> - <%= judge.qualification %></span>
+                            <button type="button" data-id="<%= judge.id %>" class="btn btn-xs btn-danger pull-right js-remove-judge"><span class="glyphicon glyphicon-trash"></span></button>
+                            </div>
+                        <% }) %>
+                        </div>
+                        <h5>Stewards</h5>
+                        <div class="list-group">
+                        <% _.forEach(table.displayStewards, function(judge){ %>
+                            <div class="list-group-item list-group-item-success clearfix"><span class="pull-left"><%= judge.name %> - <%= judge.qualification %></span>
+                            <button type="button" data-id="<%= judge.id %>" class="btn btn-xs btn-danger pull-right js-remove-steward"><span class="glyphicon glyphicon-trash"></span></button>
+                            </div>
+                        <% }) %>
+                        </div>
+                    </div>
+                </div>
+                <!-- Table Judges -->
+                <div class="table-pane-judges">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <select class="form-control pull-left js-add-judge-select" name="addJudgeSelect">
+                                <option value="">Select Judge...</option>
+                                <% _.forEach(table.availableJudges, function(judge){ %>
+                                    <option value="<%= judge.id %>" <% if(_.intersection(table.restrictedStyles, judge.restrictedStyles).length > 0 || judge.inSession){ %> disabled=true<% } %>><%= judge.name %> - <%= judge.qualification %><% if(judge.tableAM){ %> | AM<% } %><% if(judge.tablePM){ %> | PM<% } %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="col-md-3"><buttom class="js-add-judge btn btn-sm btn-primary" disabled=true>Add Judge</button></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <select class="form-control pull-left js-add-steward-select" name="addSteward">
+                                    <option value="">Select Steward...</option>
+                                    <% _.forEach(table.availableStewards, function(steward){ %>
+                                    <option value="<%= steward.id %>"<% if(_.intersection(table.restrictedStyles, steward.restrictedStyles).length > 0 || steward.inSession){ %> disabled=true<% } %>><%= steward.name %> - <%= steward.qualification %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="col-md-3"><buttom class="js-add-steward btn btn-sm btn-primary" disabled=true>Add Steward</button></div>
+                    </div>
+                </div>
+                <br>
+                <h5 class="text-right">Add New Judges and Stewards</h5>
+            </div>
+
+</script>
+
+
+
+
+{% endblock content %}

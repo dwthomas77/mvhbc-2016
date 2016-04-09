@@ -1,0 +1,202 @@
+{% extends "competition/tools-scaffolding.html" %}
+{% load staticfiles %}
+{% load mvhbc_tags %}
+{% block content %}
+
+<div class="tool-container container-fluid">
+    <div class="js-view-brewers-container">
+        <table class="table js-brewers-table">
+            {% for b in data.brewers %}
+            <tr>
+                <td>{{ b.user.first_name }} {{ b.user.last_name }}
+                    <br>{{ b.address.street_1 }}
+                    {% if b.address.street_2 %}<br>{{ b.address.street_2 }}{% endif %}
+                    <br>{{ b.address.city }}, {{ b.address.state }} {{ b.address.zipcode }}
+                </td>
+                <td>
+                    {% for s in b.submissions %}
+                        {{ s.competition_id }}{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+            </td>
+                            <td>{{ b.user.email }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="js-view-stewards-container"></div>
+</div>
+
+<!-- JS DATA -->
+<script>
+
+    var categories = [];
+    var chart = {};
+
+    // Styles
+    var styles = [{% for style in data.styles %}
+        {
+            id: '{{ style.pk }}',
+            style_id: '{{ style.style_id }}',
+            name: '{{ style.name }}',
+            category: '{{ style.category }}',
+            table: ('{{ style.table }}' !== 'None') ? '{{ style.table }}' : null,
+            submissions: []
+        },{% endfor %}
+    ];
+
+    // Submissions
+    var submissions = [{% for submission in data.submissions %}
+        {
+            id: '{{ submission.pk }}',
+            competition_id: '{{ submission.competition_id }}',
+            name: '{{ submission.name }}',
+            brewer: '{{ submission.brewer }}',
+            brewerId: '{{ submission.brewer.pk }}',
+            style: '{{ submission.style }}'
+        },{% endfor %}
+    ];
+
+    // Tables
+    var tables = [{% for table in data.tables %}
+        {
+            id: '{{ table.pk }}',
+            name: '{{ table.name }}',
+            session: '{{ table.session }}',
+            savedCategories: [],
+            unsavedCategories: [],
+            restrictedStyles: [],
+            judges: [{% for judge in table.judges.all %}{{ judge.pk }}, {% endfor %}],
+            stewards: [{% for steward in table.stewards.all %}{{ steward.pk }}, {% endfor %}],
+            displayJudges: []
+        },{% endfor %}
+    ];
+
+    // Judges
+    var judges = [{% for judge in data.judges %}
+        {
+            id: '{{ judge.pk }}',
+            name: '{{ judge.user.first_name }} {{ judge.user.last_name }}',
+            qualification: '{{ judge.qualification }}',
+            comments: "{{ judge.comments }}",
+            restrictedStyles: [],
+            tableAM: null,
+            tablePM: null,
+            catAM: [],
+            catPM: [],
+            email: '{{ judge.user.email }}'
+        },{% endfor %}
+    ];
+
+    // Stewards
+    var stewards = [{% for steward in data.stewards %}
+        {
+            id: '{{ steward.pk }}',
+            name: '{{ steward.user.first_name }} {{ steward.user.last_name }}',
+            qualification: '{{ steward.qualification }}',
+            email: '{{ steward.user.email }}',
+            tableAM: null,
+            tablePM: null,
+            catAM: [],
+            catPM: [],
+        },{% endfor %}
+    ];
+
+    // Brewers
+    var brewers = [{% for b in data.brewers %}
+        {
+            id: '{{ b.user.pk }}',
+            name: '{{ b.user.first_name }} {{ b.user.last_name }}',
+            street1: '{{ b.address.street_1 }}',
+            street2: '{{ b.address.street_2 }}',
+            city: '{{ b.address.city }}',
+            state: '{{ b.address.state }}',
+            zipcode: '{{ b.address.zipcode }}',
+            qualification: '{{ steward.qualification }}',
+            email: '{{ steward.user.email }}',
+            tableAM: null,
+            tablePM: null,
+            catAM: [],
+            catPM: []
+        },{% endfor %}
+    ];
+
+</script>
+<!-- END JS DATA -->
+
+<!-- JS Templates -->
+
+<!-- Judge List -->
+<script type="text/html" id="view-judges-tmpl">
+    <h3>Judges</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Qualification</th>
+                <th>AM Session</th>
+                <th>AM Categories</th>
+                <th>PM Session</th>
+                <th>PM Categories</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% _.forEach(judges, function (judge) { %>
+            <tr>
+                <td><%= judge.name %></td>
+                <td><%= judge.email %></td>
+                <td><%= judge.qualification %></td>
+                <td><%= judge.tableAM %></td>
+                <td>
+                <% _.forEach(judge.catAM, function(cat, index){ %>
+                    <%= cat.name %><% if(index < judge.catAM.length - 1){ %>,<% } %>
+                <% }); %>
+                </td>
+                <td><%= judge.tablePM %></td>
+                <td><% _.forEach(judge.catPM, function(cat, index){ %>
+                    <%= cat.name %><% if(index < judge.catPM.length - 1){ %>,<% } %>
+                <% }); %></td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+</script>
+
+<!-- Steward List -->
+<script type="text/html" id="view-stewards-tmpl">
+    <h3>Stewards</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Qualification</th>
+                <th>AM Session</th>
+                <th>AM Entries</th>
+                <th>PM Session</th>
+                <th>PM Entries</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% _.forEach(stewards, function (judge) { %>
+            <tr>
+                <td><%= judge.name %></td>
+                <td><%= judge.email %></td>
+                <td><%= judge.qualification %></td>
+                <td><%= judge.tableAM %></td>
+                <td><% _.forEach(judge.catAM, function(cat, index){ %>
+                    <%= cat.name %><% if(index < judge.catAM.length - 1){ %>,<% } %>
+                <% }); %></td>
+                <td><%= judge.tablePM %></td>
+                <td><% _.forEach(judge.catPM, function(cat, index){ %>
+                    <%= cat.name %><% if(index < judge.catPM.length - 1){ %>,<% } %>
+                <% }); %></td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+</script>
+
+
+
+{% endblock content %}

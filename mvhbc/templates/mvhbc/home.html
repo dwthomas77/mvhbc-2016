@@ -1,0 +1,50 @@
+{% extends "mvhbc/scaffolding.html" %}
+{% load staticfiles %}
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+
+      <!-- PHOTOS -->
+      <img src="{% static "img/mvhbc_glass_bg.jpg" %}" class="photos img-responsive" alt="Responsive image">
+
+  </div>
+  <div class="col-md-6">
+
+      <div class="updates">
+        <p class="intro">The Merrimack Valley Homebrewers Club is an organization representing the most obsessed and innovative homebrewing individuals in the Merrimack Valley. Formed to share our love of all things sudsy and cold, we are an active group of beer drinkers with an engineering problem!</p>
+
+         <section class="whatsNew">
+          <h3>What's New?</h3>
+          <div class="whatsNew-content">
+            <h4 class="text-center">The Annual MVHBC Homebrew Competition will be held on June 20th, 2015.</h4>
+            <br><h4>Lowell, Massachusetts</h4>
+            <br><p>Last year we had <b>163 entries</b>.  See the <a href="{% url 'results_2014' %}">list of winners!</a>
+            <br>
+            <h4>2015 Registration is now closed.</h4>
+
+            <br><br><p>Judging will be held June 20th, check back after to see the results!</p>
+          </div>
+        </section>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <!-- CALENDAR -->
+    <div class="calendar"><iframe id="jsCal" border=0 frameborder=0 src="https://www.google.com/calendar/embed?title=Merrimack%20Valley%20Homebrew%20Club%20Calendar&amp;showPrint=0&amp;mode=AGENDA&amp;height=225&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=mvhbclub%40gmail.com&amp;color=%232952A3&amp;ctz=America%2FNew_York"></iframe></div>
+  </div>
+  <div class="col-md-6">
+
+
+    <section class="sponsors">
+      <p class="sponsors-title">Sponsors</p>
+          <div class="sponsor-tile"><a href="http://www.homebrewersassociation.org/pages/grow-your-business/banner-ads/merrimack" target="_blank"><img src="{% static "img/AHA-webbanner-250x250.jpg" %}" border=0 class="img-responsive"> </a></div>
+          <div class="sponsor-tile"><a href="" target="_blank"><img src="{% static "img/byo_1_300x250_30k.gif" %}" class="img-responsive" border=0></a></div>
+
+      </div>
+    </section>
+
+  </div>
+</div>
+{% endblock content %}

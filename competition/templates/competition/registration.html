@@ -1,0 +1,76 @@
+{% extends "mvhbc/scaffolding.html" %}
+{% load staticfiles %}
+{% load mvhbc_tags %}
+{% block content %}
+
+<div class="comp-welcome container">
+    <div class="clearfix">
+        <h2>MVHBC Homebrew Competition - June 20th, 2015</h2>
+    </div>
+    <br><br>
+
+    <div class="row">
+        <div class="col-md-4">
+            <p><strong>Welcome to the MVHBC Homebrew Competition Registration page.</strong></p>
+            <p>Upon registering you will be able to access your Account page where you can add or remove new submissions to the competition, access payment information and upate your user profile.</p>
+
+        </div>
+        <div class="col-md-8">
+
+            <h4>2015 MVHBC Homebrew Club Competition Registration Form</h4>
+            <br>
+            <form id="registrationForm" class="registration-form" method="post" action="{% url "register" %}">
+                {% csrf_token %} 
+                <h3>User Information</h3>
+                {% for field in userForm %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field|addcss:"form-control input-sm" }}
+                    <div class="text-danger bg-danger">{{ field.errors }}</div>
+                </div>
+                {% endfor %}
+
+                <h3>Mailing Information</h3>
+                {% for field in addressForm %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field|addcss:"form-control input-sm" }}
+                    <div class="text-danger bg-danger">{{ field.errors }}</div>
+                </div>
+                {% endfor %}
+
+                <h3>Brewer Profile</h3>
+                {% for field in profileForm %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field|addcss:"form-control input-sm" }}
+                    <div class="text-danger bg-danger">{{ field.errors }}</div>
+                </div>
+                {% endfor %}
+
+                <h3>Interested in Judging?</h3>
+                If you are interested in volunteering as a Judge or Steward for the competition please fill out the fields below and we will contact you about availability.
+                {% for field in pJudgeForm %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field|addcss:"form-control input-sm" }}
+                    <div class="text-danger bg-danger">{{ field.errors }}</div>
+                </div>
+                {% endfor %}
+
+
+
+                <div class="clearfix form-submitBtn">
+                    <div class="pull-right">
+                        <input class="btn btn-default" type="submit" value="Save">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
+
+</div>
+
+{% endblock content %}

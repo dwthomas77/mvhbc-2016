@@ -1,0 +1,68 @@
+{% extends "mvhbc/scaffolding.html" %}
+{% load staticfiles %}
+{% load mvhbc_tags %}
+{% block content %}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="comp-welcome">
+            <h2 class="text-center">2015 Merrimack Valley</h2>
+            <h1 class="text-center">Homebrew Club Competition</h1>
+<br><br>
+
+            <h1 class="text-center">June 20th, 2015</h3>
+            <br><h3 class="text-center">Lowell, Massachusetts</h3>
+            <br><br>
+            <div class="well">
+                <h3 class="text-center">Registration is now closed.</h3>
+                <p class="text-center">Thanks for participating!  Results will be posted after the judging.</p>
+<!--                 <br><h2 class="text-center"><a href="{% url 'register' %}">Click here to register now</a></h2> -->
+                <br><br><h3 class="text-center">Please visit our <a href="{% url 'sponsors' %}">Sponsors Page</a></h3>
+                <h4 class="text-center">Our Sponsors have generously donated to the competition</h4>
+
+<!--                 <br><br><h3 class="text-center">Judges and Stewards Needed</h3>
+                <br><p class="text-center">We are looking for Judges and Stewards to help run the competition. All applicants welcome.  This is a great opportunity to participate in a sanctioned competition if you've never seen one, or to get more BJCP judging experience.</p> -->
+                <br>
+<!--                 <p class="text-center">Please fill out the <a href="{% url 'register' %}">JUDGE REGISTRATION FORM</a> if you are interested.</p> -->
+            </div>
+
+
+        </div>
+
+    </div>
+    
+    <!-- <div class="col-md-4">
+
+        <div class="comp-registration">
+            <div class="comp-registration-title">
+                <h3>Judge and Steward Quick Registration Form</h3>
+                <h5>(Brewer Pre-Registration for Competition)</h5>
+            </div>
+             <form id="registrationForm" class="registration-form" method="post" action="{% url "compWelcome" %}">
+
+                {% csrf_token %} 
+
+                {% for field in userForm %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field|addcss:"form-control input-sm" }}
+                    <div class="text-danger bg-danger">{{ field.errors }}</div>
+                </div>
+                {% endfor %}
+
+
+                <div class="clearfix form-submitBtn">
+                    <div class="pull-right">
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div> -->
+</div>
+
+{% endblock content %}

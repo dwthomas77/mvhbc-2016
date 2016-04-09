@@ -1,0 +1,74 @@
+{% load staticfiles %}
+{% load mvhbc_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MVHBC - Pullsheet for {{ table.name }}</title>
+    <meta name="description" content="Merrimack Valley Homebrew Club">
+    <style>
+        body {
+            font-family: arial;
+        }
+        .pull-box {
+            width: 50px;
+            height: 50px;
+            border: thin black solid;
+        }
+    </style>
+
+
+<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+</head>
+<body>
+
+
+    <h2 class="text-center">{{ table.name }} </h2>
+    <h2 class="text-center" id="category-display"></h2>
+    <br><br>
+    <table class="table" style="width: 50%; min-width: 500px; margin: 0px auto;">
+        <tr>
+            <th>Pull Order</th>
+            <th>Entry ID</th>
+            <th>Style</th>
+            <th>Score</th>
+            <th>Place</th>
+        </tr>
+    {% for submission in submissions %}
+        <tr>
+            <td><div class="pull-box"></div></td>
+            <td>{{ submission.competition_id }}</td>
+            <td>{{ submission.style }}<br>{{ submission.style.category }}</td>
+            <td><div class="pull-box"></div></td>
+            <td><div class="pull-box"></div></td>
+        </tr>
+    {% endfor %}
+    </table>
+
+<!-- Latest compiled and minified JavaScript -->
+    <script src="{% static "bower_components/lodash/lodash.min.js" %}"></script>
+    <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
+    <script src="{% static "bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js" %}"></script>
+
+
+<script>
+
+var categories = [{% for style in styles %}'{{ style.category }}'{% if not forloop.last %},{% endif %}{% endfor %}];
+var categories = _.uniq(categories);
+
+
+$(document).ready(function(){
+    var delimiter = '';
+    // print categories
+    _.forEach(categories, function(category, index){
+        delimiter = (index+1 < categories.length) ? ', ' : '';
+        $('#category-display').append(category+delimiter);
+    });
+});
+
+</script>
+</body>

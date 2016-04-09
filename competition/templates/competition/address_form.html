@@ -1,0 +1,39 @@
+{% extends "mvhbc/scaffolding.html" %}
+{% load staticfiles %}
+{% load mvhbc_tags %}
+{% block content %}
+
+<div class="container comp-welcome">
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="form-title">Address Form</h3>
+            <p>Logging into the Competition Account page requires a valid address for your account profile.  The address is required for returning competition results after the competition judging has finished.</p>
+            <h4>Judges and Stewards who have registered</h4>
+            <p>Logging into the Competition system requires an address.  Please enter an address in the form on this page and submit to continue.  You do not need to enter submissions into the competition to access this page.  You will be able to update your User Profile and Judge Preference information from the Competition Account page.</p>
+            <br><br><h4>Enter an Address in the Form and Submit to continue</h4>
+        </div>
+        <div class="col-md-6">
+            <div class="comp-registration">
+                <form id="addressForm" class="registration-form" method="post" action="{% url "address_page" %}">
+                    {% csrf_token %}
+                    {% for field in addressForm %}
+                    <div class="form-group">
+                        <label>{{ field.label_tag }}</label>
+                        {{ field|addcss:"form-control input-sm" }}
+                        <div class="text-danger bg-danger">{{ field.errors }}</div>
+                    </div>
+                    {% endfor %}
+                    <div class="clearfix">
+                        <input type="submit" class="btn btn-primary btn-sm pull-right" value="Update">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock content %}

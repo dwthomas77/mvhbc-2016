@@ -1,0 +1,58 @@
+{% extends "mvhbc/scaffolding.html" %}
+{% load staticfiles %}
+{% load mvhbc_tags %}
+{% block content %}
+
+<div class="comp-welcome container">
+
+        <h3 class="pull-left">MVHBC Homebrew Competition - June 20th, 2015</h3>
+<br><br>
+
+    <div class="row">
+        <div class="col-md-4">
+            <p><strong>Thank you for your interest in joining our fourth annual Merrimack Valley Homebrew Club Competition.</strong></p>
+            <p>We are looking for Judges and Stewards to help run the event. Please use the sign-up form provided to participate. Use the comments form to indicate any scheduling conflicts, preferences or special requests for your involvement in the competition.</p>
+            <br><h4>The competition will be held in Lowell, MA with morning and afternoon sessions</h4><br>
+            <p>Please use the same account if you plan to volunteer and submit entries.  This will allow us to match you more easily to the right categories to Judge or Steward.</p>
+
+        </div>
+        <div class="col-md-8">
+
+            <h4>2015 MVHBC Competition Judge/Steward Registration Form</h4>
+            <br>
+            <form id="judgeRegistrationForm" class="registration-form" method="post" action="{% url "judge_register" %}">
+                {% csrf_token %} 
+
+                {% for field in userForm %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field|addcss:"form-control input-sm" }}
+                    <div class="text-danger bg-danger">{{ field.errors }}</div>
+                </div>
+                {% endfor %}
+
+                {% for field in judgeForm %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field|addcss:"form-control input-sm" }}
+                    <div class="text-danger bg-danger">{{ field.errors }}</div>
+                    {% if field.name == 'judge_preference' %}
+                    <div class="pull-right text-warning">Preference Field Required</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <div class="clearfix form-submitBtn">
+                    <div class="pull-right">
+                        <input class="btn btn-default" type="submit" value="Save" disabled="disabled">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,98 @@
+{% extends "mvhbc/scaffolding.html" %}
+{% load staticfiles %}
+{% load mvhbc_tags %}
+{% block content %}
+
+<section class="l-results container">
+<div class="results-header">
+    <h3 class="text-center">2015 Merrimack Valley Homebrew Club Competition Results</h3>
+    <p class="text-center"><br>There were <b>147</b> entries to this year's competition</p>
+</div>
+<table class="table table-condensed">
+
+<thead class="thead-legend"><tr><th>Place</th><th>Brewer</th><th>Style</th><th>Name</th> <th>Club</th></tr></thead>
+
+
+
+
+<thead><tr><th colspan="5">Best of Show   </th></tr></thead>         
+<tbody>            
+<tr><td>1</td><td>   Christopher Mark</td>  <td>  American Barley Wine</td>  <td>    Constantine's Special Reserve</td>  <td> </td></tr>
+<tr><td>2</td><td>   Daniel Gavaletz</td> <td>Common Cider</td>  <td>    CJ's Cider</td>  <td> Hudson Valley Homebrewers</td></tr>
+<tr><td>3</td><td>   Nick Konwerski</td><td>  Kolsch </td>  <td> Moonraker</td>  <td> The Brewing Network</td></tr>
+</tbody>            
+            
+<thead><tr><th colspan="5">Light Lager, Pilsner, European Amber Lager  </th></tr></thead>
+<tbody>            
+<tr><td>1</td><td>   Steven Landgren</td> <td>Vienna Lager </td>  <td>   Stadt der Musik Bier</td>  <td> Upstate NY Homebrewers Association</td></tr>
+<tr><td>2</td><td>   Brandon Daly</td>   <td> Dortmunder Export </td>  <td>  Dortmover Import</td>  <td></td></tr>
+<tr><td>3</td><td>   Brandon Daly</td>  <td>  German Pilsner </td>  <td> Heisenberg Pilsner</td>  <td></td></tr>
+      </tbody>      
+<thead><tr><th colspan="5">Light Hybrid, Amber Hybrid, Bock    </th></tr></thead>
+<tbody>           
+<tr><td>1</td><td>   Nick Konwerski</td> <td> Kolsch</td>  <td>  Moonraker</td>  <td> The Brewing Network</td></tr>
+<tr><td>2</td><td>   Matt Border</td> <td>Kolsch</td>  <td>  Kaiser Kolsch</td>  <td> Wort Processors</td></tr>
+<tr><td>3</td><td>   Michael Marino</td> <td> Cream Ale </td>  <td>  Class Clown Cream Ale</td>  <td> The Brewing Network</td></tr>
+    </tbody>        
+<thead><tr><th colspan="5">English Pale, Scottish/Irish Ale, English Brown Ale </th></tr></thead>
+<tbody>            
+<tr><td>1</td><td>   Justin Bosch </td>  <td> Mild </td>  <td>   Brit Abroad </td>  <td>STL Brews</td></tr>
+<tr><td>2</td><td>   Aaron Zaslow</td>  <td>  ESB </td>  <td>Defector ESB</td>  <td> North Florida Brewers League</td></tr>
+<tr><td>3</td><td>   John Golden</td> <td>Mild  </td>  <td>  The Great Imposter </td>  <td>Brew Free or Die</td></tr>
+<tr><td>HM</td><td>  Michael Marino</td> <td> Irish Red Ale </td>  <td>  F Street Red Ale </td>  <td>The Brewing Network</td></tr>
+   </tbody>         
+<thead><tr><th colspan="5">American Ale       </th></tr></thead>
+<tbody>         
+<tr><td>1</td><td>   Karl Metzemaekers</td> <td>  American Pale Ale </td>  <td>  T&K's PA </td>  <td>MVHBC</td></tr>
+<tr><td>2</td><td>   Jonathan Belk</td>  <td> American Amber Ale</td>  <td>  James River </td>  <td></td></tr>
+<tr><td>3</td><td>   Isaac Boucher</td>  <td> American Pale Ale </td>  <td>  Saccharocymes Lost </td>  <td>Brew Free Or Die</td></tr>
+   </tbody>         
+<thead><tr><th colspan="5">Porters, Stouts     </th></tr></thead>
+<tbody>        
+<tr><td>1</td><td>   Mark Lewis</td>  <td>Dry Stout </td>  <td>  Creepy Mortician Stout </td>  <td>Abnormal Brewers</td></tr>
+<tr><td>2</td><td>   Joe Rezendes</td>  <td>  Robust Porter </td>  <td>  Dr. Bopso's Mystery Oils</td>  <td> </td></tr>
+<tr><td>3</td><td>   Ian Stults</td> <td> Robust Porter </td>  <td>  Roasty Experiment </td>  <td></td></tr>
+<tr><td>HM </td><td> Michael Marino</td> <td> Baltic Porter </td>  <td>  Baltic Porter </td>  <td>The Brewing Network</td></tr>
+   </tbody>         
+<thead><tr><th colspan="5">IPA         </th></tr></thead>
+<tbody>    
+<tr><td>1</td><td>   Michael Marino </td>  <td> American IPA </td>  <td>   A Bunch of Fives IPA </td>  <td>The Brewing Network</td></tr>
+<tr><td>2</td><td>   Mike Rego </td>  <td>  American IPA   </td>  <td> Cowboy IPA </td>  <td>Brew Free or Die</td></tr>
+<tr><td>3</td><td>   Eamon Poplin  </td>  <td>  American IPA  </td>  <td>  Connaught Rangers IPA</td>  <td> </td></tr>
+   </tbody>         
+<thead><tr><th colspan="5">German Wheat & Rye, Belgian & French Ale   </th></tr></thead>
+<tbody>             
+<tr><td>1</td><td>   Daniel Gavaletz </td>  <td>Belgian Specialty </td>  <td>  Dark Horse </td>  <td>Hudson Valley Homebrewers</td></tr>
+<tr><td>2</td><td>   Jim Prucha </td>  <td> Saison </td>  <td> #193</td><td> Brew Free or Die</td></tr>
+<tr><td>3</td><td>   Matt Hersh </td>  <td> Saison </td>  <td> It's Wedding Saison </td>  <td></td></tr>
+<tr><td>HM </td><td> Joe Rezendes  </td>  <td>  Belgian Specialty </td>  <td>  Blond Trappist table beer (Patersbier) </td>  <td></td></tr>
+    </tbody>        
+<thead><tr><th colspan="5">Sour Ale          </th></tr></thead>
+<tbody>      
+<tr><td>1</td><td>   Dan Preston </td>  <td>Unblended Lambic  </td>  <td>  da Bom </td>  <td>WORTS</td></tr>
+<tr><td>2</td><td>   John Golden </td>  <td>Berliner Weisse </td>  <td>Meringue </td>  <td>Brew Free or Die</td></tr>
+<tr><td>3</td><td>   Dan Preston </td>  <td>Oud Bruin </td>  <td>  Sour SEB </td>  <td>Worts</td></tr>
+     </tbody>       
+<thead><tr><th colspan="5">Belgian Strong, Strong Ale    </th></tr></thead>
+<tbody>          
+<tr><td>1</td><td>   Christopher Mark </td>  <td>   American Barley Wine  </td>  <td>  Constantine's Special Reserve </td>  <td></td></tr>
+<tr><td>2</td><td>   Max Heinegg </td>  <td>American Barley Wine  </td>  <td>  Strong Wife Ale</td>  <td> Boston Wort Processors</td></tr>
+<tr><td>3</td><td>   David Rosenbaum </td>  <td>Belgian Trippel </td>  <td>Tripel the Love</td>  <td>  Brew Free or Die</td></tr>
+    </tbody>        
+<thead><tr><th colspan="5">Fruit, Spice/Herb, Smoke/Wood Aged, Specialty    </th></tr></thead>
+<tbody>           
+<tr><td>1</td><td>   Joe Rezendes  </td>  <td>  Classic Rauchbier </td>  <td>  RaunchBeahDude </td>  <td></td></tr>
+<tr><td>2</td><td>   Kevin George </td>  <td>   Specialty  </td>  <td> Session Lager </td>  <td>
+<tr><td>3</td><td>   Ian Stults </td>  <td> Specialty </td>  <td>  Cran-banero Ale </td>  <td>
+    </tbody>        
+<thead><tr><th colspan="5">Cider, Mead         </th></tr></thead>
+<tbody>    
+<tr><td>1</td><td>   Daniel Gavaletz </td>  <td>Common Cider  </td>  <td>  CJ's Cider </td>  <td>Hudson Valley Homebrewers
+<tr><td>2</td><td>   Steven Landgren </td>  <td>Fruit Melomel</td>  <td>   Aloha</td>  <td>  Upstate NY Homebrewers Association
+<tr><td>3</td><td>   Mike Hand  </td>  <td> Fruit Melomel </td>  <td>  Cranberry Nectar</td>  <td> MVHBC
+<tr><td>HM </td><td> William Grote </td>  <td>  Specialty Cider</td>  <td> Cherry Apple Smash </td>  <td> WORTS
+</tbody>
+
+</table>
+</section>
+{% endblock content %}

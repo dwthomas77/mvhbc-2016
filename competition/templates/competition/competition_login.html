@@ -1,0 +1,27 @@
+{% extends "mvhbc/scaffolding.html" %}
+{% load staticfiles %}
+{% load mvhbc_tags %}
+{% block content %}
+
+<div class="competition-content container">
+
+    <form class="login-form comp-form-container" method="post" action="{% url "django.contrib.auth.views.login" %}">
+    <h4>MVHBC Competition Login</h4>
+<!--     <p>Haven't signed up?  <a href="">Register Now</a> to join the competition, submit entries and print labels.</p> -->
+    <p>Registration is now open for Judges and Stewards.  Pre-registraiton available for brewers, competition entry forms will be available in May.</p>
+    {% if form.errors %}<p class="text-danger bg-danger">Your username and password didn't match. Please try again.</p>{% endif %}
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field|addcss:"form-control input-sm" }}
+                <div class="text-danger bg-danger">{{ field.errors }}</div>
+            </div>
+        {% endfor %}
+        <input class="btn btn-primary" type="submit" value="login" />
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+    <p class="text-center"><small>Forgot your username or password? <a href="{% url "password_reset" %}">Click to reset your account by email.</a></small> </p>
+</div>
+
+{% endblock content %}

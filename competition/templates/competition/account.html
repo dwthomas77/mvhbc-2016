@@ -147,7 +147,7 @@
             </div>
 
             <!-- JUDGE PREFERENCES -->
-        <!--      <div class="panel panel-default">
+              <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                     <h3 class="panel-title pull-left">Judge/Steward Preferences</h3>
                     <button type="button" class="btn btn-info btn-xs pull-right" data-toggle="collapse" data-target="#collapseJudge">Edit</button>
@@ -171,16 +171,47 @@
                         </form>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
             <!-- PAYMENT SECTION -->
             <div class="">
                 <h3 class="form-title">Payments</h3>
                       Payments accepted by two methods:
                       <ol><li>Personal Check - make payable to "Merrimack Valley Homebrew Club"</li>
-                      <li>Paypal - coming soon</li>
+                          <li>Paypal - see following form</li>
                       </ol><br>
-
+                <h4>PayPal Payments</h4><br>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="EL8R58J8K5YKU">
+                    <table>
+                        <tr><td><input type="hidden" name="on0" value="Entries">Entries</td></tr><tr><td><select name="os0">
+                        <option value="1">1 $7.50 USD</option>
+                        <option value="2">2 $15.00 USD</option>
+                        <option value="3">3 $22.50 USD</option>
+                        <option value="4">4 $30.00 USD</option>
+                        <option value="5">5 $37.50 USD</option>
+                        <option value="6">6 $45.00 USD</option>
+                        <option value="7">7 $52.50 USD</option>
+                        <option value="8">8 $60.00 USD</option>
+                        <option value="9">9 $67.50 USD</option>
+                        <option value="10">10 $75.00 USD</option>
+                    </select> </td></tr>
+                        <tr><td><input type="hidden" name="on1" value="Entry IDs">Entry IDs</td></tr><tr><td><input type="text" name="os1" maxlength="200">
+                        <br><small>Your Entry IDs:
+                            {% if entries %}
+                            {% for s in entries %}
+                            {{s.competition_id}},
+                            {% endfor %}
+                            {% endif %}
+                        </small>
+                    </td></tr>
+                    </table>
+                    <input type="hidden" name="currency_code" value="USD">
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                </form>
+                <small>PayPal entries should be marked as paid within 24 - 48 hours</small>
             </div>
 
         </div>

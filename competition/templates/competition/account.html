@@ -10,7 +10,11 @@
 <div class="comp-welcome container-fluid">
     <div class="clearfix">
         <h2 class="pull-left">MVHBC Homebrew Competition - July 9th, 2016</h2>
-        <div class="pull-right">Logged in as: {{ user.username }} | <a href="{% url "logout" %}">Logout</a></div>
+        <div class="pull-right">
+            Logged in as: {{ user.username }} | <a href="{% url "logout" %}">Logout</a>
+            {% if request.user.is_active and request.user.is_staff %} <a href="{% url 'tools_home' %}">| Tools Home</a> {% endif %}
+        
+        </div>
     </div>
     <br><br>
     <div class="clearfix userBar">

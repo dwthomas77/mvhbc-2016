@@ -555,7 +555,11 @@ def address_page(request):
             'addressForm': addressForm
         })
 
-# # Tools
+# # Tools0
+@staff_member_required
+def tools_home(request):
+    return render(request, "competition/tools_home.html")
+
 @staff_member_required
 def table_manager(request):
     # Get All Dependency Objects from DB

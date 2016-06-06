@@ -1,0 +1,16 @@
+{% extends "mvhbc/scaffolding.html" %}
+{% load staticfiles %}
+{% load mvhbc_tags %}
+{% block content %}
+
+<div class="toolsHome">
+    <br><a href="{% url 'table_manager' %}">Table Manager</a>
+    <br><a href="{% url 'view_judges' %}">View Judges</a>
+    <br><a href="{% url 'view_submissions' %}">View Submissions</a>
+    <br><a href="{% url 'view_brewers' %}">View Brewers</a>
+    
+    
+</div>
+
+
+{% endblock content %}

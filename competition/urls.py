@@ -30,6 +30,7 @@ urlpatterns = patterns('',
     # ADD
     url(r'^account/submission/$', views.add_submission, name="add_submission"),
     # Tools
+    url(r'^tools/$', views.tools_home, name="tools_home"),
     url(r'^tools/table-manager/$', views.table_manager, name="table_manager"),
     url(r'^tools/table-manager/add', views.table_add, name="table_add"),
     url(r'^tools/table-manager/lock-category', views.lock_category, name="lock_category"),

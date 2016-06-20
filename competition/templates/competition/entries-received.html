@@ -1,0 +1,79 @@
+{% extends "competition/tools-scaffolding.html" %}
+{% load staticfiles %}
+{% load mvhbc_tags %}
+{% block content %}
+
+<div class="tool-container container-fluid">
+    
+    <div class="checkin-form-holder clearfix">
+        <div class="pull-left">
+            <form id="checkInSubmissions" class="submission-form edit-form form-inline" method="post" action="/competition/tools/entries-received/">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control" name="competitionId" id="competitionId" placeholder="Competition ID">
+                </div>
+                <button type="submit" class="btn btn-primary">Check In Entry</button>
+            </form>            
+        </div>
+
+        <div class="pull-right alert {{ message_state }}">
+            {{ message }}
+        </div>
+    </div>
+    
+
+
+    <div>
+        
+        <table class="table">
+            <caption>Entries received</caption>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Brewer</th>
+                    <th>Style</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in received %}
+                <tr>
+                    <td>{{ s.competition_id }}</td>
+                    <td>{{ s.brewer }}</td>
+                    <td>{{ s.style }}</td>
+                    <td>{{ s.name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+
+    <div>
+        <table class="table">
+            <caption>Entries not received</caption>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Brewer</th>
+                <th>Style</th>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for s in not_received %}
+                <tr>
+                    <td>{{ s.competition_id }}</td>
+                    <td>{{ s.brewer }}</td>
+                    <td>{{ s.style }}</td>
+                    <td>{{ s.name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>  
+    </div>
+
+    
+</div>
+
+{% endblock content %}

@@ -1,3 +1,5 @@
+import time
+from datetime import *
 from itertools import chain
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, render, redirect, get_object_or_404
@@ -774,6 +776,43 @@ def table_score(request, pk):
 @staff_member_required
 def table_score_post(request, pk):
     return redirect('table_manager')
+    
+@staff_member_required
+def entries_received(request):
+    compare_date = date(2015, 8, 1)
+    all_received = Submission.objects.filter(check_in__year=2016)
+    not_received = Submission.objects.exclude(check_in__year=2016)
+    # Get All Dependency Objects from DB
+    data = {
+        'styles': Style.objects.all(),
+        'users': UserProfile.objects.all(),
+        'submissions': Submission.objects.all(),
+        'tables': JudgingTable.objects.all(),
+        'judges': UserProfile.objects.filter(judge_preference = 'Judge'),
+        'stewards': UserProfile.objects.filter(judge_preference = 'Steward'),
+        'brewers': UserProfile.objects.all()
+    }
+    if request.method == 'POST':
+        try:
+            validEntry = Submission.objects.get(competition_id = request.POST['competitionId'])
+            validEntry.check_in = datetime.now()
+            validEntry.save()
+            message = 'Competition ID ' + request.POST['competitionId'] + ' has been checked in.'
+            message_state = 'alert-success'
+        except Submission.DoesNotExist:
+            message = 'The submitted ID ' + request.POST['competitionId'] + ' is not a valid Competition ID'
+            message_state = 'alert-danger'
+    else:
+        message = 'Please enter a Competition ID from the submission label to check in an entry'
+        message_state = 'alert-info'
+        
+    return render(request, "competition/entries-received.html", {
+        'received':all_received,
+        'not_received':not_received,
+        'data': data,
+        'message': message,
+        'message_state': message_state
+    })
 
 def print_label(request, e_pk):
     e = get_object_or_404(Submission, pk=e_pk)

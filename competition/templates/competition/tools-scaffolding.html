@@ -27,7 +27,7 @@
             <!-- Tools Summary -->
             <div class="tools-summary pull-left">
                 <!-- Totals -->
-                <h3> Totals</h3>
+                <h3> Totals</h3><br>
                 <ul>
                     <li>Users: {{ data.users|length }}</li>
                     <li>Submissions: {{ data.submissions|length }}</li>
@@ -47,7 +47,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{% url "home" %}">MVHBC Tools</a>
+          <a class="navbar-brand" href="{% url "tools_home" %}">MVHBC Tools</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -68,6 +68,6 @@
     <script src="{% static "bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js" %}"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script src="{% static "js/competition-account.js" %}"></script>
-    <script src="{% static "js/table-manager.js" %}"></script>
+    {% block page_scripts %}{% endblock page_scripts %}
 </body>
 </html>

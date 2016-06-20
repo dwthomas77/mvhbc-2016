@@ -44,6 +44,7 @@ urlpatterns = patterns('',
     url(r'^tools/pullsheet/(?P<pk>\d+)', views.pull_sheet, name="pull_sheet"),
     url(r'^tools/table-score/(?P<pk>\d+)', views.table_score, name="table_score"),
     url(r'^tools/table-score/post/(?P<pk>\d+)', views.table_score_post, name="table_score_post"),
+    url(r'^tools/entries-received/', views.entries_received, name="entries_received"),
     url(r'^tools/view-submissions', views.view_submissions, name="view_submissions"),
     url(r'^tools/view-brewers', views.view_brewers, name="view_brewers"),
     # Password Reset

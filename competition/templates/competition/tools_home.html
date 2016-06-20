@@ -1,4 +1,4 @@
-{% extends "mvhbc/scaffolding.html" %}
+{% extends "competition/tools-scaffolding.html" %}
 {% load staticfiles %}
 {% load mvhbc_tags %}
 {% block content %}
@@ -8,6 +8,7 @@
     <br><a href="{% url 'view_judges' %}">View Judges</a>
     <br><a href="{% url 'view_submissions' %}">View Submissions</a>
     <br><a href="{% url 'view_brewers' %}">View Brewers</a>
+    <br><a href="{% url 'entries_received' %}">Entries Received</a>
     
     
 </div>

@@ -67,8 +67,12 @@ def registration(request):
     else:
         return render(request, "competition/registration-error.html", {})
 
-# User Registration
+# Close Registration
 def register(request):
+    return redirect('login')
+
+# User Registration
+def register_closed(request):
     if request.method == 'POST':
         userData = {
             'username':  request.POST['username'],

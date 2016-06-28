@@ -12,10 +12,24 @@
         body {
             font-family: arial;
         }
+        
+        tr {
+            page-break-before: always;
+        }
+        
         .pull-box {
-            width: 50px;
-            height: 50px;
+            width: 25px;
+            height: 25px;
             border: thin black solid;
+        }
+        
+        .comment-box {
+            width: 200px;
+            height: 50px;
+            border: thin gray solid;
+        }
+        .style-row {
+            min-width: 250px;
         }
     </style>
 
@@ -37,14 +51,16 @@
             <th>Style</th>
             <th>Score</th>
             <th>Place</th>
+            <th>Comments</th>
         </tr>
     {% for submission in submissions %}
         <tr>
             <td><div class="pull-box"></div></td>
             <td>{{ submission.competition_id }}</td>
-            <td>{{ submission.style }}<br>{{ submission.style.category }}</td>
+            <td class="style-row">{{ submission.style }}<br>{{ submission.style.category }}</td>
             <td><div class="pull-box"></div></td>
             <td><div class="pull-box"></div></td>
+            <td><div class="comment-box"></div></td>
         </tr>
     {% endfor %}
     </table>

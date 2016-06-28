@@ -561,10 +561,20 @@ def address_page(request):
             'addressForm': addressForm
         })
 
-# # Tools0
+# Tools
 @staff_member_required
 def tools_home(request):
-    return render(request, "competition/tools_home.html")
+    # Get All Dependency Objects from DB
+    data = {
+        'styles': Style.objects.all(),
+        'users': UserProfile.objects.all(),
+        'submissions': Submission.objects.all(),
+        'tables': JudgingTable.objects.all(),
+        'judges': UserProfile.objects.filter(judge_preference = 'Judge'),
+        'stewards': UserProfile.objects.filter(judge_preference = 'Steward'),
+        'brewers': UserProfile.objects.all()
+    }
+    return render(request, "competition/tools_home.html", {'data': data})
 
 @staff_member_required
 def table_manager(request):

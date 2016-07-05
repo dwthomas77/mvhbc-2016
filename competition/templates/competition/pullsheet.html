@@ -12,11 +12,11 @@
         body {
             font-family: arial;
         }
-        
-        tr {
-            page-break-before: always;
+
+        @media print {
+            table.breaker  { page-break-before: always; }
         }
-        
+
         .pull-box {
             width: 25px;
             height: 25px;
@@ -24,12 +24,13 @@
         }
         
         .comment-box {
-            width: 200px;
+            width: 100px;
+            font-size: 8px;
             height: 50px;
-            border: thin gray solid;
         }
         .style-row {
-            min-width: 250px;
+            min-width: 275px;
+            font-size: 12px;
         }
     </style>
 
@@ -54,13 +55,19 @@
             <th>Comments</th>
         </tr>
     {% for submission in submissions %}
-        <tr>
+
+        {% if forloop.counter == 10 or forloop.counter == 20 or forloop.counter == 30 or forloop.counter == 40 %}
+        </table>
+        <table class="table breaker" style="width: 50%; min-width: 500px; margin: 0px auto;">
+        {% endif %}
+        
+        <tr class="page-break">
             <td><div class="pull-box"></div></td>
             <td>{{ submission.competition_id }}</td>
             <td class="style-row">{{ submission.style }}<br>{{ submission.style.category }}</td>
             <td><div class="pull-box"></div></td>
             <td><div class="pull-box"></div></td>
-            <td><div class="comment-box"></div></td>
+            <td><div class="comment-box">{{ submission.comments }}</div></td>
         </tr>
     {% endfor %}
     </table>

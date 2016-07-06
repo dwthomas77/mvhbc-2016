@@ -12,6 +12,7 @@
             <th>Style</th>
             <th>Brewer</th>
             <th>Paid</th>
+            <th>Received</th>
         </tr>
         {% for submission in data.submissions %}
         <tr>
@@ -23,6 +24,13 @@
                     <span class="label label-success">Paid</span>
                 {% else %}
                     <span class="label label-danger">Nope</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if submission.received %}
+                <span class="label label-success">Checked-In</span>
+                {% else %}
+                <span class="label label-danger">Not Checked In</span>
                 {% endif %}
             </td>
 

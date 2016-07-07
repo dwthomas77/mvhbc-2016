@@ -13,6 +13,18 @@
             font-family: arial;
         }
 
+        table {
+            width: 100%;
+        }
+        
+        tr {
+            border-top: thin gray solid;
+        }
+        
+        table tr td {
+            padding: 10px 0px;
+        }
+        
         @media print {
             table.breaker  { page-break-before: always; }
         }
@@ -24,13 +36,13 @@
         }
         
         .comment-box {
-            width: 100px;
-            font-size: 8px;
-            height: 50px;
+            max-width: 200px;
+            font-size: 10px;
+            padding-left: 10px;
         }
         .style-row {
             min-width: 275px;
-            font-size: 12px;
+            font-size: 14px;
         }
     </style>
 
@@ -45,7 +57,7 @@
     <h2 class="text-center">{{ table.name }} </h2>
     <h2 class="text-center" id="category-display"></h2>
     <br><br>
-    <table class="table" style="width: 50%; min-width: 500px; margin: 0px auto;">
+    <table style="width: 100%;">
         <tr>
             <th>Pull Order</th>
             <th>Entry ID</th>
@@ -56,9 +68,9 @@
         </tr>
     {% for submission in submissions %}
 
-        {% if forloop.counter == 10 or forloop.counter == 20 or forloop.counter == 30 or forloop.counter == 40 %}
+        {% if forloop.counter == 13 or forloop.counter == 23 or forloop.counter == 33 or forloop.counter == 43 %}
         </table>
-        <table class="table breaker" style="width: 50%; min-width: 500px; margin: 0px auto;">
+        <table class="breaker">
         {% endif %}
         
         <tr class="page-break">

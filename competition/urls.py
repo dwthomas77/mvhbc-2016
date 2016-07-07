@@ -47,6 +47,8 @@ urlpatterns = patterns('',
     url(r'^tools/entries-received/', views.entries_received, name="entries_received"),
     url(r'^tools/view-submissions', views.view_submissions, name="view_submissions"),
     url(r'^tools/view-brewers', views.view_brewers, name="view_brewers"),
+    url(r'^tools/address-csv', views.address_csv, name="address_csv"),
+    url(r'^tools/live-scoring', views.live_score, name="live_score"),
     # Password Reset
     url(r'^login/password/reset/$', 'django.contrib.auth.views.password_reset', {'post_reset_redirect' : '/competition/login/password/reset/done/'}, name="password_reset"),
     url(r'^login/password/reset/done/$', 'django.contrib.auth.views.password_reset_done'),

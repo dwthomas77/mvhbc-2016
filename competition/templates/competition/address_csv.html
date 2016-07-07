@@ -1,0 +1,27 @@
+{% load staticfiles %}
+{% load mvhbc_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MVHBC Competition Address CSV</title>
+    <meta name="description" content="Merrimack Valley Homebrew Club">
+</head>
+<body>
+
+
+{% for b in data.brewers %}
+    <br>
+    {{ b.user.first_name }} {{ b.user.last_name }},
+    {{ b.address.street_1 }},
+    {% if b.address.street_2 %}{{ b.address.street_2 }}{% endif %},
+    {{ b.address.city }},
+    {{ b.address.state }},
+    {{ b.address.zipcode }}
+{% endfor %}
+
+
+</body>
+</html>

@@ -745,6 +745,15 @@ def view_brewers(request):
     for u in data['brewers']:
         u.submissions = Submission.objects.filter(brewer = u)
     return render(request, "competition/view_brewers.html", {'data':data})
+    
+@staff_member_required
+def address_csv(request):
+    # Get All Dependency Objects from DB
+    data = {
+        'users': UserProfile.objects.all(),
+        'brewers': UserProfile.objects.all()
+    }
+    return render(request, "competition/address_csv.html", {'data':data})
 
 @staff_member_required
 def switch_table(request):
@@ -827,6 +836,19 @@ def entries_received(request):
         'message': message,
         'message_state': message_state
     })
+    
+@staff_member_required
+def live_score(request):
+# Get All Dependency Objects from DB
+    data = {
+        'styles': Style.objects.all(),
+        'users': UserProfile.objects.all(),
+        'submissions': Submission.objects.all(),
+        'tables': JudgingTable.objects.all(),
+        'judges': UserProfile.objects.filter(judge_preference = 'Judge'),
+        'stewards': UserProfile.objects.filter(judge_preference = 'Steward'),
+    }
+    return render(request, "competition/live_score.html", {'data': data})
 
 def print_label(request, e_pk):
     e = get_object_or_404(Submission, pk=e_pk)

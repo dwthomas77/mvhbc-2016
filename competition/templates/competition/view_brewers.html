@@ -4,6 +4,12 @@
 {% block content %}
 
 <div class="tool-container container-fluid">
+
+    <br><div class="clearfix">
+        <a href="{% url 'address_csv' %}" class="btn pull-right btn-primary">Address CSV List</a>
+        
+    </div><br><br>
+    
     <div class="js-view-brewers-container">
         <table class="table js-brewers-table">
             {% for b in data.brewers %}

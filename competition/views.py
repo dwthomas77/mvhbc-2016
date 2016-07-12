@@ -854,6 +854,9 @@ def print_label(request, e_pk):
     e = get_object_or_404(Submission, pk=e_pk)
     return render(request, "competition/print_label.html", {'entry':e})
 
+def results_2016(request):
+    return render(request, "competition/results_2016.html")
+
 def results_2015(request):
     return render(request, "competition/results_2015.html")
 

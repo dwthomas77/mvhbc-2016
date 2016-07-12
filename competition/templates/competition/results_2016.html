@@ -1,0 +1,91 @@
+{% extends "mvhbc/scaffolding.html" %}
+{% load staticfiles %}
+{% load mvhbc_tags %}
+{% block content %}
+
+<script>
+    var list = [{"Place":"Best of Show","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"1","Brewer":"Phil Nerboso ","Style":"Specialty ","ID":"23_101","EntryName":"Been Waitin'","Club":"Boston Wort Processors"},
+            {"Place":"2","Brewer":"Ryan Whitcomb ","Style":"English Barley Wine","ID":"19B147","EntryName":"Spend The Night","Club":"FOAM - Fitchburg Order of Ale Makers"},
+            {"Place":"3","Brewer":"Douglas Schmidt ","Style":"Berliner Weisse","ID":"17A124","EntryName":"Brett the Berliner","Club":"Boston Wort Processors"},
+            {"Place":"","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"Light Lager, Pilsner, Light Hybrid","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"1","Brewer":"Michael Marino ","Style":"German Pilsner","ID":"2A112","EntryName":"Pils","Club":"The Brewing Network"},
+            {"Place":"2","Brewer":"Matthew Border ","Style":"Kolsch","ID":"6C16","EntryName":"Kaiser Kolsch","Club":"Boston Wort Processors"},
+            {"Place":"3","Brewer":"Steven Landgren ","Style":"Dortmunder Export","ID":"1E36","EntryName":"German Export Lager","Club":"Upstate NY Homebrewers Association"},
+            {"Place":"","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"Dark Lager, Bock, Amber Hybrid, Scottish and Irish Ale","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"1","Brewer":"Michael Marino ","Style":"Scottish Heavy","ID":"9B114","EntryName":"70/- Ale","Club":"The Brewing Network"},
+            {"Place":"2","Brewer":"Karl Metzemaekers ","Style":"Doppelbock","ID":"5C201","EntryName":"Mingyanator ","Club":"MVHBC"},
+            {"Place":"3","Brewer":"Michael Marino ","Style":"Munich Dunkel","ID":"4B110","EntryName":"Sprechen Sie Dunkle?","Club":"The Brewing Network"},
+            {"Place":"","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"English Pale Ale, American Pale Ale","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"1","Brewer":"Bryan Schmutz ","Style":"Standard Bitter","ID":"8A96","EntryName":"Ordinary Bitter","Club":""},
+            {"Place":"2","Brewer":"Mike Gregory ","Style":"American Pale Ale","ID":"10A43","EntryName":"SMaSH Pale Ale ","Club":""},
+            {"Place":"3","Brewer":"Trevor Reiff ","Style":"American Pale Ale","ID":"10A61","EntryName":"M's pale ale","Club":""},
+            {"Place":"","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"English Brown, Porter, Stout","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"1","Brewer":"Marco Borba ","Style":"Russian Imperial Stout","ID":"13F76","EntryName":"I Wear Magnum","Club":"MVHBC"},
+            {"Place":"2","Brewer":"Russell Carpenter ","Style":"Baltic Porter","ID":"12C53","EntryName":"Dark Mischief","Club":"Seacoast Homebrew Club/Brew Free or Die"},
+            {"Place":"3","Brewer":"Joe Bump ","Style":"Sweet Stout","ID":"13B135","EntryName":"Sweet Hey Zeus","Club":"DC Homebrewers"},
+            {"Place":"HM","Brewer":"Andrew Sutton ","Style":"Sweet Stout","ID":"13B20","EntryName":"Landlord Sweet Milk Stout","Club":""},
+            {"Place":"","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"India Pale Ale","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"1","Brewer":"Karl Metzemaekers ","Style":"Imperial IPA","ID":"14C202","EntryName":"Munich DIPA","Club":"MVHBC"},
+            {"Place":"2","Brewer":"Jason Chang ","Style":"American IPA","ID":"14B49","EntryName":"Breakfast Can Wait","Club":""},
+            {"Place":"3","Brewer":"Joshua Fogg ","Style":"American IPA","ID":"14B86","EntryName":"Queen of Sumatra II","Club":"Rhode Island Brewing Society"},
+            {"Place":"HM","Brewer":"Gustavo Ribeiro ","Style":"Imperial IPA","ID":"14C56","EntryName":"High Hopes Citra","Club":"Post Modern Brewers"},
+            {"Place":"","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"German Wheat & Rye, Belgian & French Ale","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"1","Brewer":"Robert Blake ","Style":"Weizen/Weissbier","ID":"15A68","EntryName":"Casey Weiss","Club":""},
+            {"Place":"2","Brewer":"Joe Meadows ","Style":"Weizenbock","ID":"15C119","EntryName":"Slag Heap's Weizenbock","Club":""},
+            {"Place":"3","Brewer":"Pat Michiels ","Style":"Saison","ID":"16C152","EntryName":"Bloody Saison","Club":"Barley Legal Homebrewers"},
+            {"Place":"","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"Belgian Strong Ale, Strong Ale","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"1","Brewer":"Ryan Whitcomb ","Style":"English Barley Wine","ID":"19B147","EntryName":"Spend The Night","Club":"FOAM - Fitchburg Order of Ale Makers"},
+            {"Place":"2","Brewer":"Michael Marino ","Style":"Belgian Golden Strong Ale","ID":"18D115","EntryName":"Caveat Imbiber ","Club":"The Brewing Network"},
+            {"Place":"3","Brewer":"Alec Bull ","Style":"Belgian Blonde Ale","ID":"18A199","EntryName":"Dreamlike on Account of that Frosting","Club":"MVHBC"},
+            {"Place":"","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"Smoke-Flavored/Wood Aged","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"1","Brewer":"Neil Kade ","Style":"Wood-aged Beer","ID":"22C13","EntryName":"Carpathian","Club":""},
+            {"Place":"2","Brewer":"Neil Kade ","Style":"Wood-aged Beer","ID":"22C23","EntryName":"Black Cape ","Club":""},
+            {"Place":"3","Brewer":"Matthew Border  ","Style":"Other Smoked Beer","ID":"22B18","EntryName":"Cherrywood Smoked Porter","Club":"Boston Wort Processors"},
+            {"Place":"","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"Fruit Beer, Spice/Herb/Vegetable Beer, Specialty","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"1","Brewer":"Phil Nerboso ","Style":"Specialty ","ID":"23_101","EntryName":"Been Waitin'","Club":"Boston Wort Processors"},
+            {"Place":"2","Brewer":"Max Heinegg ","Style":"Fruit Beer","ID":"20_177","EntryName":"Blueberry sour wheat","Club":"Boston Wort Processors"},
+            {"Place":"3","Brewer":"Jonathan Tirrell  ","Style":"Spice, Herb, or Vegetable Beer","ID":"21A166","EntryName":"Jalapeno Business Porter","Club":""},
+            {"Place":"","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"Sour Ale, Mead, Cider","Brewer":"","Style":"","ID":"","EntryName":"","Club":""},
+            {"Place":"1","Brewer":"Douglas Schmidt ","Style":"Berliner Weisse","ID":"17A124","EntryName":"Brett the Berliner","Club":"Boston Wort Processors"},
+            {"Place":"2","Brewer":"Michael Hand ","Style":"Metheglin","ID":"26A142","EntryName":"Ginger Metheglin","Club":"MVHBC"},
+            {"Place":"3","Brewer":"Michael Wells ","Style":"Flanders Red Ale","ID":"17B94","EntryName":"Where the Wild Things Are","Club":"Missouri Mashers"},
+            {"Place":"HM","Brewer":"Michael Switzer ","Style":"Fruit Lambic","ID":"17F156","EntryName":"Terroir","Club":"MVHBC"}];
+    
+    var s = '<thead class="thead-legend"><tr><th>Place</th><th>Brewer</th><th>Style</th><th>Name</th> <th>Club</th></tr></thead>';
+    
+    list.forEach( function(record) {
+        if(record.Place && !record.Brewer) {
+            s += '<thead><tr><th colspan="5">' + record.Place + '</th></tr></thead>';
+        } else {
+            s += '<tr><td>'+record.Place+'</td><td>'+record.Brewer+'</td><td>'+record.Style+'</td><td>'+record.EntryName+'</td><td>'+record.Club+'</td>';
+        }
+        
+    });
+    
+</script>
+
+<section class="l-results container">
+    <div class="results-header">
+        <h3 class="text-center">2016 Merrimack Valley Homebrew Club Competition Results</h3>
+        <p class="text-center"><br>There were <b>147</b> entries to this year's competition</p>
+    </div>
+    <table class="table table-condensed" id="resultsTable"></table>
+    
+    
+</section>
+
+<script>
+    document.getElementById('resultsTable').innerHTML = s;
+</script>
+{% endblock content %}
